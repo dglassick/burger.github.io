@@ -1,27 +1,29 @@
 // Dependencies
 // =============================================================
 var express = require("express");
-var handlebars = require('express-handlebars');
+var exphbs = require('express-handlebars');
 
 // Sets up the Express App
 // =============================================================
 var app = express();
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 7070;
 
+app.use(express.static( __dirname + "/public"));
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Static directory
-app.use(express.static("/public"));
+
 
 //sets up handlebars
-app.engine('handlebars', handlebars({defaultLayout:'main'}));
+app.engine('handlebars', exphbs({defaultLayout:'main'}));
 app.set('view engine', 'handlebars');
 
 // Routes
 // =============================================================
-require('./controllers/burgers_controllers')(app);
+var routes = require('./controllers/burgers_controllers');
+app.use(routes)
 
 // Starts the server to begin listening
 // =============================================================

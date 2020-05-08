@@ -1,0 +1,49 @@
+
+
+body {
+    height: 75vh;
+    background-image: url(../img/pexels-photo-3052364.jpeg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1, h2, h3, h4, h5, p {
+    font-family: 'Courier New', Courier, monospace;
+    color: white;
+}
+
+h1 { 
+    font-size: 7em;
+    color : 
+    #fa7d0e;
+}
+
+h2{
+    font-size: 2em;
+}
+
+p{
+    font-size: 1.5em;
+}
+
+.headerEat{
+padding: .05rem;
+margin-top: 25px;
+}
+
+.divBody{
+    color: white;
+    margin-left: 100px;
+    padding: .5rem;
+    margin-top: 25px;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.devour{
+    color: rgb(0, 126, 17);
+    background-color: rgb(189, 255, 189);
+}

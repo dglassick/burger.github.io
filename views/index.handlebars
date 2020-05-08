@@ -1,0 +1,64 @@
+
+{{!-- this is the header and the form to input the burger --}}
+<div class="container">
+    <div>
+        <div class="headerEat">
+            <h1 class="text-center">Eat the Burger</h1>
+        </div>
+        <div class="row justify-content-center">
+            <h3>Enter your burger that you'd like to devour!</h3>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <form class="create-form justify-content-center">
+            <div class="form-group">
+                <div class="row">
+                    <textarea name="burger" id="newB" cols="30" type='text'></textarea>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <button class="btn btn-danger" type="submit">Make the Burger</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{!-- first section is the non-devoured burgers --}}
+
+<div class="divBody">
+    <div class="row">
+        <div class="col-md-8">
+            <div>
+                <h2>Burgers Ready to Be Eaten</h2>
+            </div>
+
+            <ul>
+                {{#each burgers}}
+                {{#unless devoured}}
+                <li>
+                    <p>{{id}} . {{burger_name}}</p>
+
+                    <button class="btn button-success devour" data-id="{{id}}" data-devoured="true">
+                        Devour Burger!
+                    </button>
+                </li>
+                {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
+
+        <div class="col-md-4">
+            <h2>You were hungry!</h2>
+            <ul>
+                {{#each burgers}}
+                {{#if devoured}}
+                <li>
+                    <p>{{id}} . {{burger_name}}</p>
+                </li>
+                {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
+

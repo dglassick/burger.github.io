@@ -16,20 +16,44 @@
 
 var connection = require('./connection')
 
+function objToSql(ob) {
+    var arr = [];
+  
+    // loop through the keys and push the key/value as a string int arr
+    for (var key in ob) {
+      var value = ob[key];
+      // check to skip hidden properties
+      if (Object.hasOwnProperty.call(ob, key)) {
+        // if string with spaces, add quotations (Lana Del Grey => 'Lana Del Grey')
+        if (typeof value === "string" && value.indexOf(" ") >= 0) {
+          value = "'" + value + "'";
+        }
+        // e.g. {name: 'Lana Del Grey'} => ["name='Lana Del Grey'"]
+        // e.g. {sleepy: true} => ["sleepy=true"]
+        arr.push(key + "=" + value);
+      }
+    }
+  
+    // translate array of strings to a single comma-separated string
+    return arr.toString();
+  }
+
+
+
 var orm = {
 
     selectAll: function(burgers, cb){
-        var queryString = 'SELECT * FROM ??';
+        var queryString = 'SELECT * FROM ??;';
         connection.query(queryString, [burgers],function(err, result){
             if(err) throw err;
-            console.log(result)
+            // console.log(result)
             cb(result);
         })
     }
 ,
-    insertBurger: function(burgers, burger_name, devoured, burg_name, eaten, cb){
-        var queryString = 'INSERT INTO ?? (??, ??) VALUES (??, ??);';
-        connection.query(queryString, [burgers, burger_name, devoured, burg_name, eaten], function(err, result){
+    insertBurger: function(burger_name, devoured, cb){
+        var queryString = `INSERT INTO burgers (burger_name, devoured) VALUES ('${burger_name}', ${devoured})`;
+        connection.query(queryString, function(err, result){
             if(err) throw err;
             console.log(result)
             cb(result);
@@ -37,9 +61,9 @@ var orm = {
 
     }
 ,
-    devourBurger: function(burgers, devoured, notEaten, burgerId, cb){
-        var queryString = 'UPDATE ?? SET ?? = ?? WHERE id = ??';
-        connection.query(queryString, [burgers, devoured, notEaten, burgerId], function(err, result){
+    devourBurger: function(table, columnValues, condition, cb){
+        var queryString = `UPDATE ${table} SET ${objToSql(columnValues)} WHERE ${condition}`;
+        connection.query(queryString, function(err, result){
             if (err) throw err;
             console.log(result)
             cb(result);
@@ -47,5 +71,5 @@ var orm = {
 
     }
 };
-orm.selectAll()
+
 module.exports = orm;
