@@ -18,7 +18,8 @@ if(process.env.JAWSDB_URL){
     password: "ub0sf4n7k8o1ch2x",
     database: "xn6i7yjo689la5yv",
 
-});
+})
+};
 
 
 
