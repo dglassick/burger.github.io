@@ -15,6 +15,7 @@ app.use(express.json());
 
 // Static directory
 
+// comment
 
 //sets up handlebars
 app.engine('handlebars', exphbs({defaultLayout:'main'}));
